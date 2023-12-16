@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    var firstInput, secondInput;
+
+    function showInput(inputNumber) {
+        var userInput = prompt("Enter the new " + inputNumber + " input (or leave blank to use the previous value):");
+        if (userInput !== null && userInput !== '') {
+            userInput = parseFloat(userInput);
+            if (inputNumber === 1) {
+                firstInput = userInput;
+            } else if (inputNumber === 2) {
+                secondInput = userInput;
+            }
+        }
+        return userInput;
+    }
+
+    function compareInputs() {
+        var newFirstInput = parseFloat(showInput(1));
+        var newSecondInput = parseFloat(showInput(2));
+
+        if (!isNaN(newFirstInput)) {
+            firstInput = newFirstInput;
+        }
+
+        if (!isNaN(newSecondInput)) {
+            secondInput = newSecondInput;
+        }
+
+        var resultText = "";
+
+        if (firstInput > secondInput) {
+            document.body.style.backgroundColor = "lightblue";
+            resultText = firstInput + " > " + secondInput;
+        } else if (secondInput > firstInput) {
+            document.body.style.backgroundColor = "orange";
+            resultText = secondInput + " > " + firstInput;
+        } else {
+            document.body.style.backgroundColor = "lightyellow";
+            resultText = secondInput + " == " + firstInput;
+        }
+
+        // Display the result on the screen next to the buttons
+        var resultElement = document.getElementById("result");
+        resultElement.textContent = resultText;
+
+        // Update the display of firstInput and secondInput
+        document.getElementById("firstInputDisplay").textContent = "First Input: " + firstInput;
+        document.getElementById("secondInputDisplay").textContent = "Second Input: " + secondInput;
+    }
+</script>
+
+<div>
+    <button onclick="compareInputs()">Compare Inputs</button>
+    <button onclick="alert('1st input: ' + firstInput)">Show 1st Input</button>
+    <button onclick="alert('2nd input: ' + secondInput)">Show 2nd Input</button>
+</div>
+
+<!-- Display the current values of firstInput and secondInput (hidden) -->
+<p id="firstInputDisplay" style="display: none;"></p>
+<p id="secondInputDisplay" style="display: none;"></p>
+
+<!-- Display the result next to the buttons -->
+<p id="result"></p>
+
+</body>
+</html>
